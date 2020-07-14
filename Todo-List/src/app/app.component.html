@@ -1,0 +1,46 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="todos form-wrap">
+    <h4>Todo List</h4>
+      <div class="form-field-wrap">
+        <div>
+          <form (submit)="addTodo($event)">
+            <div class="row">
+              <div class="col-8">
+                <!-- <input [(ngModel)]="newTodo" (keyup.enter)="newTodo=''" class="textfield" name="newTodo"> -->
+                <mat-form-field  class="full-width">
+                    <input [(ngModel)]="newTodo" (keyup.enter)="newTodo=''" class="textfield" name="newTodo" matInput placeholder="Add a new task">
+                  </mat-form-field>
+              </div>
+              <div class="col-4">
+                <button mat-raised-button color="primary"  type="submit" class="mt-2" [disabled]="newTodo===''">Add Todo</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <ul cdkDropList (cdkDropListDropped)="drop($event)" class="task-list">
+          <li class="example-box" cdkDrag *ngFor="let todo of todos; let i=index">
+            <div class="row w-100">
+              <div class="col-10">
+                <!-- <input type="checkbox" class="checkbox" [(ngModel)]="todo.completed" /> -->
+                <mat-checkbox class="checkbox" [(ngModel)]="todo.completed" (change)="checkIfAllSelected()"><span class="task-added" [ngClass]="{'checked': todo.completed}">{{ todo.newTodo }}</span></mat-checkbox>
+              </div>
+              <div class="col-2">
+                <!-- <span (click)="deleteTodo(i)" class="delete-icon">X</span> -->
+                <!-- <button mat-mini-fab color="accent" (click)="deleteTodo(i)" class="delete-icon">X</button> -->
+                <i (click)="deleteTodo(i)" class="material-icons delete-icon">cancel</i>
+              </div>
+            </div>
+          </li> 
+        </ul>
+        
+        <div class="mt-5">
+          <button mat-raised-button color="accent" (click)="deleteSelectedTodos()">Delete Selected</button>
+        </div>
+      </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
